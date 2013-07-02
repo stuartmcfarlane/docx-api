@@ -87,7 +87,10 @@ var docx = require('docx-transform');
 server.get('/api/v1/docx', function apiV1Docx (req, res) {
   var url = req.query.url;
   console.log('url', url);
-  request.get(url).pipe(docx.toDocx).pipe(res);
+  var toDocx = docx.toDocx({
+    url: url
+  });
+  request.get(url).pipe(toDocx).pipe(res);
 });
 
 //A Route for Creating a 500 Error (Useful to keep around)

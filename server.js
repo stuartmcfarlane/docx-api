@@ -1,7 +1,6 @@
 //setup Dependencies
 var connect = require('connect')
     , express = require('express')
-    , io = require('socket.io')
     , port = (process.env.PORT || 8081);
 
 //Setup Express
@@ -46,20 +45,6 @@ server.error(function(err, req, res, next){
 });
 server.listen( port);
 
-//Setup Socket.IO
-var io = io.listen(server);
-io.sockets.on('connection', function onSocketConnect(socket){
-  console.log('Client Connected');
-  socket.on('message', function onSocketMessage(data){
-    socket.broadcast.emit('server_message',data);
-    socket.emit('server_message',data);
-  });
-  socket.on('disconnect', function onSocketDisconnect(){
-    console.log('Client Disconnected.');
-  });
-});
-
-
 ///////////////////////////////////////////
 //              Routes                   //
 ///////////////////////////////////////////
@@ -83,14 +68,18 @@ server.get('/', function getIndex(req,res){
 
 var request = require('request');
 var docx = require('docx-transform');
+var url = require('url');
 
 server.get('/api/v1/docx', function apiV1Docx (req, res) {
-  var url = req.query.url;
-  console.log('url', url);
+  var urlToConvert = req.query.url;
+  console.log('urlToConvert', urlToConvert);
   var toDocx = docx.toDocx({
-    url: url
+    url: urlToConvert
   });
-  request.get(url).pipe(toDocx).pipe(res);
+  var parsedUrl = url.parse(urlToConvert);
+  var filename = parsedUrl.hostname.replace('/\./', '-') + '.docx';
+  res.setHeader('Content-Disposition', 'attachment; filename="' + filename);
+  request.get(urlToConvert).pipe(toDocx).pipe(res);
 });
 
 //A Route for Creating a 500 Error (Useful to keep around)

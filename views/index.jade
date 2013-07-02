@@ -1,6 +1,9 @@
 extends layout
 
 block content
-	div
-		a(id='sender')='Send a Message'
-		ul(id='receiver')
+	h1 Convert a web page to a MS Word document
+	form(method="get", action="/api/v1/docx")
+		label(for="url")
+			Which page?
+		input(type="text", id="url", name="url", data-placeholder="Enter a URL")
+		input(type="submit")

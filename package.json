@@ -1,4 +1,5 @@
 {
+  "private" : true,
   "name": "docx-api",
   "description": "HTTP api to convert html to MS Word DOCX format",
   "author": "Stuart McFarlane <stuart@mcfarlane.nl>",
@@ -8,7 +9,7 @@
     "express": "~2.5.2",
     "jade": "~0.20.0",
     "request": "~2.21.0",
-    "docx-transform": "https://github.com/stuartmcfarlane/docx-transform"
+    "docx-transform": "git://github.com/stuartmcfarlane/docx-transform.git"
   },
   "devDependencies": {
     "vows": "0.5.x",

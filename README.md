@@ -20,4 +20,4 @@ a diffucult problem to solve in any general way.
 
 ## Contributing
 
-If anyone has a solution to this problem please feel free to have a look at [docx-transform](https://github.com/stuartmcfarlane/docx-transform) and drop your code into it.
+If have a html to docx converter please feel free to have a look at [docx-transform](https://github.com/stuartmcfarlane/docx-transform) and drop your code into it.
